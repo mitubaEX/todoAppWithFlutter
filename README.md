@@ -10,5 +10,8 @@ For help getting started with Flutter, view our online
 ## Run
 
 ```
+open -a Simulator
+
+# run
 flutter run
 ```
