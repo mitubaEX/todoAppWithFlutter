@@ -23,4 +23,10 @@ class TodoEntityImpl implements TodoEntity {
     }
     return todoList;
   }
+  
+  @override
+  List<Todo> removeTodo(int id) {
+    todoList.remove(todoList[id]);
+    return todoList;
+  }
 }

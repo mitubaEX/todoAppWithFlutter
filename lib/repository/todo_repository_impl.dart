@@ -20,4 +20,8 @@ class TodoRepositoryImpl implements TodoRepository{
   List<Todo> completeTodo(int id) {
     return todoEntityImpl.completeTodo(id);
   }
+
+  List<Todo> removeTodo(int id) {
+    return todoEntityImpl.removeTodo(id);
+  }
 }

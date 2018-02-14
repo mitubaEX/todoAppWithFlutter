@@ -6,4 +6,6 @@ abstract class TodoEntity {
   List<Todo> addTodo(String todoName);
 
   List<Todo> completeTodo(int id);
+
+  List<Todo> removeTodo(int id);
 }

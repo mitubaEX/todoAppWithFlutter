@@ -30,39 +30,51 @@ class _TodoItemState extends State<TodoItem> {
 
   String getSnackBarText(bool comp){
     if(comp)
-      return 'undo doing!';
-    return 'doing!!!!!!';
+      return 'Undo doing!';
+    return 'Doing!!!!!!';
   }
 
   @override
   Widget build(BuildContext context){
     print('completeCondition:' + completeCondition.toString());
-    return new Row(
-      children: <Widget>[
-        new Checkbox(
-          value: widget.todo.comp,
-          onChanged: (bool newValue){
-            setState((){
-              widget.todo.comp = newValue;
-            });
+    return new ListTile(
+      leading: new Checkbox(
+        value: widget.todo.comp,
+        onChanged: (bool newValue){
+          setState((){
+            widget.todo.comp = newValue;
+          });
+          new RepositoryFactory()
+              .getTodoRepositoryImpl()
+              .completeTodo(widget.todo.id);
+          Scaffold.of(context).showSnackBar(
+            new SnackBar(
+              content: new Text(getSnackBarText(completeCondition)),
+            ),
+          );
+          onTap();
+        },
+      ),
+      title: new Text(
+        widget.todo.todoName,
+        style: new TextStyle(
+            fontSize: 16.0,
+            decoration: getTextDecoration(widget.todo.comp)),
+      ),
+      trailing: new RaisedButton.icon(
+          onPressed: (){
             new RepositoryFactory()
                 .getTodoRepositoryImpl()
-                .completeTodo(widget.todo.id);
+                .removeTodo(widget.todo.id);
             Scaffold.of(context).showSnackBar(
               new SnackBar(
-                  content: new Text(getSnackBarText(completeCondition)),
+                content: new Text('Remove!!!'),
               ),
             );
             onTap();
           },
-        ),
-        new Text(
-          widget.todo.todoName,
-          style: new TextStyle(
-              fontSize: 16.0,
-              decoration: getTextDecoration(widget.todo.comp)),
-        ),
-      ],
+          icon: new Icon(Icons.remove_circle),
+          label: new Text('remove')),
     );
   }
 }
