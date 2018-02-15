@@ -26,23 +26,20 @@ class MyHomePage extends StatefulWidget {
   _MyHomePage createState() => new _MyHomePage(this.complete);
 }
 
-
 class _MyHomePage extends State<MyHomePage> {
   bool complete;
-  List<Todo> _todoList = [];
+  List<Todo> _todoList;
 
   _MyHomePage(this.complete);
 
   @override
   initState(){
-    setState((){
-      this._todoList = new RepositoryFactory()
+    super.initState();
+    setState(() {
+      _todoList = new RepositoryFactory()
           .getTodoRepositoryImpl()
           .findGivenComleteCondition(this.complete);
     });
-    print('todolist');
-    print(this._todoList);
-    print(this.complete);
   }
 
   String getTitle(){

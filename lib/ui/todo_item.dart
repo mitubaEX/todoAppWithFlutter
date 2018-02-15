@@ -36,7 +36,6 @@ class _TodoItemState extends State<TodoItem> {
 
   @override
   Widget build(BuildContext context){
-    print('completeCondition:' + completeCondition.toString());
     return new ListTile(
       leading: new Checkbox(
         value: widget.todo.comp,
