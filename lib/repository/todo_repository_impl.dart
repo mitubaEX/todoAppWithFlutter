@@ -6,23 +6,19 @@ import 'package:flutter_app/repository/todo_repository.dart';
 class TodoRepositoryImpl implements TodoRepository{
   TodoEntityImpl todoEntityImpl = new TodoEntityImpl();
 
-  List<Todo> findAll() {
+  Future<List<Todo>> findAll() {
     return todoEntityImpl.findAll();
   }
 
-  List<Todo> findGivenComleteCondition(bool completeCondition){
-    return todoEntityImpl.findAll().where((i) => i.comp == completeCondition).toList();
-  }
-
-  List<Todo> addTodo(String todoName) {
+  Future<List<Todo>> addTodo(String todoName) {
     return todoEntityImpl.addTodo(todoName);
   }
 
-  List<Todo> completeTodo(int id) {
+  Future<List<Todo>> completeTodo(int id) {
     return todoEntityImpl.completeTodo(id);
   }
 
-  List<Todo> removeTodo(int id) {
+  Future<List<Todo>> removeTodo(int id) {
     return todoEntityImpl.removeTodo(id);
   }
 }

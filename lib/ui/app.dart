@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/ui/todo_list.dart';
-import 'package:flutter_app/repository/repository_factory.dart';
 import 'package:flutter_app/ui/drawer.dart';
 import 'package:flutter_app/ui/create_todo.dart';
-import 'package:flutter_app/models/todo.dart';
 
 class App extends StatelessWidget {
   @override
@@ -28,18 +26,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePage extends State<MyHomePage> {
   bool complete;
-  List<Todo> _todoList;
 
   _MyHomePage(this.complete);
 
   @override
   initState(){
     super.initState();
-    setState(() {
-      _todoList = new RepositoryFactory()
-          .getTodoRepositoryImpl()
-          .findGivenComleteCondition(this.complete);
-    });
   }
 
   String getTitle(){
@@ -57,7 +49,7 @@ class _MyHomePage extends State<MyHomePage> {
         complete: this.complete,
       ),
       body: new Center(
-        child: new TodoList(todoList: this._todoList, completeCondition: this.complete,),
+        child: new TodoList(completeCondition: this.complete,),
       ),
       floatingActionButton: new FloatingActionButton(
         onPressed: (){

@@ -1,13 +1,12 @@
+import 'dart:async';
 import 'package:flutter_app/models/todo.dart';
 
 abstract class TodoRepository {
-  List<Todo> findAll();
+  Future<List<Todo>> findAll();
 
-  List<Todo> findGivenComleteCondition(bool completeCondition);
+  Future<List<Todo>> addTodo(String todoName);
 
-  List<Todo> addTodo(String todoName);
+  Future<List<Todo>> completeTodo(int id);
 
-  List<Todo> completeTodo(int id);
-
-  List<Todo> removeTodo(int id);
+  Future<List<Todo>> removeTodo(int id);
 }

@@ -5,40 +5,40 @@ import 'package:flutter_app/repository/repository_factory.dart';
 
 class TodoList extends StatefulWidget {
   bool completeCondition;
-  List<Todo> todoList;
 
   TodoList({
-    this.todoList,
     this.completeCondition,
   });
 
   @override
-  _TodoListState createState() => new _TodoListState(todoList, completeCondition);
+  _TodoListState createState() => new _TodoListState(completeCondition);
 }
 
 class _TodoListState extends State<TodoList>{
 
-  List<Todo> todoList;
+  List<Todo> todoList = [];
 
   bool completeCondition;
 
   _TodoListState(
-      this.todoList,
       this.completeCondition,
       );
 
   @override
   void initState() {
-    setState(() {
-      todoList = new RepositoryFactory()
-          .getTodoRepositoryImpl()
-          .findGivenComleteCondition(completeCondition);
+    new RepositoryFactory()
+        .getTodoRepositoryImpl()
+        .findAll()
+        .then((List<Todo> MyTodoList){
+      setState((){
+        todoList = MyTodoList.where((i) => i.comp == this.completeCondition).toList();
+      });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    if(todoList.length == 0){
+    if (todoList.length == 0) {
       return new Center(
         child: new Text('No Todo'),
       );
@@ -48,11 +48,13 @@ class _TodoListState extends State<TodoList>{
         todo: todoList[index],
         completeCondition: completeCondition,
         onTap:(){
-          setState((){
-            this.todoList =
-                new RepositoryFactory()
-                    .getTodoRepositoryImpl()
-                    .findGivenComleteCondition(completeCondition);
+          new RepositoryFactory()
+              .getTodoRepositoryImpl()
+              .findAll()
+              .then((List<Todo> MyTodoList){
+            setState((){
+              todoList = MyTodoList.where((i) => i.comp == this.completeCondition).toList();
+            });
           });
         },
       ),
